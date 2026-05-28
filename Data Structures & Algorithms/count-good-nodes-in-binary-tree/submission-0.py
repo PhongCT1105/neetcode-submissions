@@ -1,0 +1,25 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def goodNodes(self, root: TreeNode) -> int:
+        res = 0
+        # Solve this with BFS
+        # Traverse through layer, save the max element of each path
+
+        from collections import deque
+        q = deque([(root, -float('inf'))])
+        while q:
+            node, maxVal = q.popleft()
+            if node.val >= maxVal:
+                res += 1
+            if node.left:
+                q.append((node.left, max(node.val, maxVal)))
+            if node.right:
+                q.append((node.right, max(node.val, maxVal)))
+
+        return res
